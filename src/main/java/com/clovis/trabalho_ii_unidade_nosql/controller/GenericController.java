@@ -18,8 +18,15 @@ public class GenericController {
 
 
     @GetMapping("/{collection}")
-    public List<Document> findAll(@PathVariable String collection) {
-        return genericService.findAll(collection);
+    @ResponseStatus(HttpStatus.OK)
+    public List<Document> findAll(
+        @PathVariable String collection,
+        @RequestParam(required = false) Integer page,
+        @RequestParam(required = false) Integer limit,
+        @RequestParam(required = false) String query,
+        @RequestParam(required = false) String fields
+    ){
+        return genericService.findAll(collection, page, limit, query, fields);
     }
 
     @GetMapping("/{collection}/{id}")
@@ -35,11 +42,13 @@ public class GenericController {
     }
 
     @DeleteMapping("/{collection}/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable String id,@PathVariable String collection){
         genericService.delete(id, collection);
     }
 
     @PutMapping("/{collection}/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable String id,@PathVariable String collection, @RequestBody Document document){
         genericService.update(id, collection, document);
     }

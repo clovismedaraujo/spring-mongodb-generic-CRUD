@@ -1,9 +1,10 @@
 package com.clovis.trabalho_ii_unidade_nosql.service;
 
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.bson.Document;
+import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -17,8 +18,31 @@ public class GenericService {
 
     private final MongoTemplate mongoTemplate;
 
-    public List<Document> findAll(String collection) {
-        return mongoTemplate.findAll(Document.class, collection);
+    public List<Document> findAll(String collection, Integer page, Integer limit, String queryParam, String fields) {
+        Query query;
+
+        if (queryParam != null) {
+            query = new BasicQuery(queryParam);
+        } else {
+            query = new Query();
+        }
+
+        if (page != null && limit != null) {
+            query.with(PageRequest.of(page, limit));
+        }
+
+        if (fields != null) {
+            String[] fieldList = fields.split(",");
+            for (String field : fieldList) {
+                if (field.startsWith("-")) {
+                    query.fields().exclude(field.substring(1));
+                } else {
+                    query.fields().include(field);
+                }
+            }
+        }
+
+        return mongoTemplate.find(query, Document.class, collection);
     }
 
     public Document findById(String id, String collection){
