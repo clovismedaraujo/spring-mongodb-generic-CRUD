@@ -25,82 +25,29 @@ A API permite realizar operações completas de CRUD em qualquer coleção do Mo
 
 ### Pré-requisitos
 
-- Java 21 ou superior instalado
-- Maven instalado
-- MongoDB rodando localmente na porta `27017`
+Para rodar este projeto, você só precisa ter instalado em sua máquina:
 
-### Instalando
+* [Docker](https://www.docker.com/)
+* [Docker Compose](https://docs.docker.com/compose/)
 
+### ▶️ Como Executar o Projeto com Docker Compose
+O projeto está totalmente configurado para subir a API e o banco de dados MongoDB juntos de forma isolada e integrada.
+
+**1. Clone o repositório:**
 ```bash
-# Clone o repositório
 git clone <url-do-repositorio>
+cd spring-mongodb-generic-CRUD
+```
+**2. Suba o ambiente completo:**
 
-# Entre na pasta do projeto
-cd trabalho-ii-unidade-nosql
+Execute o comando abaixo na raiz do projeto onde está o arquivo docker-compose.yml:
+
+```
+docker compose up -d
 ```
 
-#### Linux/Mac:
-```bash
-./mvnw install
-```
+A API estará disponível automaticamente em: http://localhost:8080
 
-#### Windows:
-```bash
-.\mvnw.cmd install
-```
-
----
-
-## ▶️ Como Executar o Projeto
-
-#### Linux/Mac:
-```bash
-./mvnw spring-boot:run
-```
-
-#### Windows:
-```bash
-.\mvnw.cmd spring-boot:run
-```
-
-A API estará disponível em: `http://localhost:8080`
-
----
-
-## 🔧 Configuração do Banco de Dados
-
-No arquivo `src/main/resources/application.yaml`:
-
-```yaml
-spring:
-  application:
-    name: trabalho-ii-unidade-nosql
-  mongodb:
-    uri: mongodb://localhost:27017/nome-do-seu-banco
-```
-## 🐳 MongoDB com Docker
-
-Caso não queira instalar o MongoDB localmente, você pode subi-lo via Docker.
-
-### Pré-requisitos
-- [Docker](https://docs.docker.com/get-docker/) instalado
-
-### Subindo o MongoDB
-
-```bash
-docker run -d -p 27017:27017 --name mongodb mongo:7
-```
-
-O MongoDB estará disponível em `mongodb://localhost:27017`.
-
-Para parar:
-```bash
-docker stop mongodb
-```
-
----
-
----
 
 ## 🚀 Exemplos de Uso das Rotas
 
