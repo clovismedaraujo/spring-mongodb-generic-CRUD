@@ -21,8 +21,8 @@ public class GenericController {
     @ResponseStatus(HttpStatus.OK)
     public List<Document> findAll(
         @PathVariable String collection,
-        @RequestParam(required = false) Integer page,
-        @RequestParam(required = false) Integer limit,
+        @RequestParam(required = false, defaultValue = "0") Integer page,
+        @RequestParam(required = false, defaultValue = "10") Integer limit,
         @RequestParam(required = false) String query,
         @RequestParam(required = false) String fields
     ){
@@ -31,7 +31,7 @@ public class GenericController {
 
     @GetMapping("/{collection}/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Document findById(@PathVariable String id,@PathVariable String collection) {
+    public Document findById(@PathVariable String id, @PathVariable String collection) {
         return genericService.findById(id, collection);
     }
 

@@ -2,4 +2,4 @@ spring:
   application:
     name: trabalho-ii-unidade-nosql
   mongodb:
-    uri: mongodb://mongodb:27017/db-nosql
+    uri: mongodb://localhost:27017/db-nosql
